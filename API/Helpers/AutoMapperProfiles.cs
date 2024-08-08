@@ -15,5 +15,7 @@ public class AutoMapperProfiles : Profile
             .ForMember(d => d.Age, o => o.MapFrom(s => s.DateOfBirth.CalculateAge()))
         .ForMember(dest => dest.PhotoUrl, opt => opt.MapFrom(src => src.Photos.FirstOrDefault(x => x.IsMain)!.Url));
         // .ForMember(dest => dest.Photos, opt => opt.MapFrom(src => src.Photos));
+
+        CreateMap<MemberUpdateDto, AppUser>();
     }
 }
