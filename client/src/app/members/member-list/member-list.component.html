@@ -1,9 +1,26 @@
 <div class="row">
     
-    @for (member of memberService.members(); track member.id) {
+    @for (member of memberService.paginationResult()?.items; track member.id) {
         <div class="col-2">
             <app-member-card [member]="member"></app-member-card>
         </div>
     }
     
 </div>
+
+@if (memberService.paginationResult()?.pagination) {
+    <div class="d-flex justify-content-center">
+        <pagination 
+            [boundaryLinks]="true" 
+            [totalItems]="memberService.paginationResult()?.pagination!.totalItems"
+            [itemsPerPage]="memberService.paginationResult()?.pagination!.itemsPerPage"
+            (pageChanged)="pageChanged($event)"
+            [maxSize]="10"
+            previousText="&lsaquo;" 
+            nextText="&rsaquo;" 
+            firstText="&laquo;" 
+            lastText="&raquo;">
+        </pagination>
+    </div>
+    
+}   
