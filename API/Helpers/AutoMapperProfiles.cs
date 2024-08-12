@@ -17,5 +17,13 @@ public class AutoMapperProfiles : Profile
         // .ForMember(dest => dest.Photos, opt => opt.MapFrom(src => src.Photos));
 
         CreateMap<MemberUpdateDto, AppUser>();
+        
+        CreateMap<RegisterDto, AppUser>();
+        
+        CreateMap<string, DateOnly>().ConvertUsing(s => DateOnly.Parse(s));
+        
+        CreateMap<RegisterDto, AppUser>()
+            .ForMember(dest => dest.DateOfBirth, 
+                opt => opt.MapFrom<DateOnlyResolver>());
     }
 }
